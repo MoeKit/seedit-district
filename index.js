@@ -1,6 +1,5 @@
 'use strict';
 var Picker = require('picker');
-var $ = require('zepto');
 
 var seeditDistrict = function(option) {
 	var self = this;
@@ -43,6 +42,7 @@ seeditDistrict.prototype.getProvince = function() {
 		url: self.getApi(),
 		dataType : 'jsonp',
 		jsonp: '__c',
+		jsonpCallback: "jsonp" + new Date().getTime(),
 		success: function(data) {
 			if(data.error_code === 0) {
 				var prov_data = data.data;
@@ -84,6 +84,7 @@ seeditDistrict.prototype.getCity = function(upid, picker) {
 		data: post_data,
 		dataType: 'jsonp',
 		jsonp: '__c',
+		jsonpCallback: "jsonp" + new Date().getTime(),
 		success: function(data) {
 			if(data.error_code === 0 && typeof data.data[0] !== 'undefined') {
 				var city_data = data.data;
@@ -137,6 +138,7 @@ seeditDistrict.prototype.getRegion = function(upid, picker) {
 		data: post_data,
 		dataType: 'jsonp',
 		jsonp: '__c',
+		jsonpCallback: "jsonp" + new Date().getTime(),
 		success: function(data) {
 			if(data.error_code === 0 && typeof data.data[0] !== 'undefined') {
 				var region_data = data.data;

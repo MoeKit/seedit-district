@@ -7,6 +7,7 @@
 <input type="text" id="JS_input_1">
 
 ````javascript
+var $ = require('zepto'); //如果页面已引入 zepto 或 jquery，请忽略这行
 var seeditDistrict = require('seedit-district');
 new seeditDistrict({
 	'input': '#JS_input_1',
