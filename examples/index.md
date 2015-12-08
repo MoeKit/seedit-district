@@ -11,7 +11,11 @@ var $ = require('zepto'); //如果页面已引入 zepto 或 jquery，请忽略�
 var seeditDistrict = require('seedit-district');
 new seeditDistrict({
 	'input': '#JS_input_1',
-	'cols': 1
+	'cols': 1,
+    'picker': {
+        itemsNumber: 9,
+        itemHeight: 40
+    }
 })
 ````
 

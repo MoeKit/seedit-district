@@ -2,7 +2,6 @@
 var Picker = require('picker');
 
 var seeditDistrict = function(option) {
-	var self = this;
 	this.picker;
 	this.option = option || ''; // 设置选项
 	this.flag = 0; // 判断是否为第一次加载，0 为第一次
@@ -15,6 +14,7 @@ var seeditDistrict = function(option) {
 	this.all_data = {}; // 所有名称和 id 对应的对象
 	this.doc_width = document.documentElement.clientWidth; //手机 viewport 宽度
 	this.init();
+	return this;
 }
 
 seeditDistrict.prototype.init = function() {
@@ -226,8 +226,13 @@ seeditDistrict.prototype.createObj = function() {
 			displayValues: self.province,
 		}];
 	}
-	var picker = new Picker({
+
+	var picker_option = self.option.picker || {};
+	self.picker = new Picker({
 		input: self.option.input,
+		itemsNumber: picker_option.itemsNumber || '',
+		itemHeight: picker_option.itemHeight || '',
+		container: picker_option.container || '',
 		formatValue: function(picker, val){
 			var str = '';
 			var data_str = '';
@@ -239,12 +244,12 @@ seeditDistrict.prototype.createObj = function() {
 
 				if(typeof val[1] !== 'undefined' && val[1] !== '') {
 					str += self.all_data[val[1]];
-					data_str += '&&' + self.all_data[val[1]];
+					data_str += '$$' + self.all_data[val[1]];
 				}
 
 				if(typeof val[2] !== 'undefined' && val[2] !== '') {
 					str += self.all_data[val[2]];
-					data_str += '&&' + self.all_data[val[2]];
+					data_str += '$$' + self.all_data[val[2]];
 				}
 				$(self.option.input).attr('data-string', data_str);
 			}
@@ -253,7 +258,10 @@ seeditDistrict.prototype.createObj = function() {
 		cols: cols,
 		onClose: function(picker) {
 			self.picker = picker;
-		}
+		},
+		onChange: picker_option.onChange,
+		onOpen: picker_option.onOpen,
+		toolbarTemplate: picker_option.toolbarTemplate,
 	})
 }
 
