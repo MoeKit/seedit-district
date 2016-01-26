@@ -13,6 +13,7 @@ var seeditDistrict = function(option) {
 	this.region_id = []; // 区域 id
 	this.all_data = {}; // 所有名称和 id 对应的对象
 	this.doc_width = document.documentElement.clientWidth; //手机 viewport 宽度
+	this.ajaxStatus = []; // 保存 ajax 请求状态，重复请求时中止上一个请求
 	this.init();
 	return this;
 }
@@ -77,8 +78,10 @@ seeditDistrict.prototype.getCity = function(upid, picker) {
 	var picker = picker || '';
 	this.city = []; // 每次调用该函数时，清空数组，下同
 	this.city_id = [];
-
-	$.ajax({
+	if(typeof self.ajaxStatus[0] !== 'undefined') {
+		self.ajaxStatus[0].abort();
+	}
+	self.ajaxStatus[0] = $.ajax({
 		type: 'GET',
 		url: self.getApi(),
 		data: post_data,
@@ -131,8 +134,10 @@ seeditDistrict.prototype.getRegion = function(upid, picker) {
 	var picker = picker || '';
 	this.region = []; // 每次调用该函数时，清空数组，下同
 	this.region_id = [];
-
-	$.ajax({
+	if(typeof self.ajaxStatus[1] !== 'undefined') {
+		self.ajaxStatus[1].abort();
+	}
+	self.ajaxStatus[1] = $.ajax({
 		type: 'GET',
 		url: self.getApi(),
 		data: post_data,
