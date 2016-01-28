@@ -25,7 +25,7 @@ seeditDistrict.prototype.init = function() {
 seeditDistrict.prototype.getApi = function() {
 	var url = window.location.host;
 	var apiUrl;
-	if(/office||(192\.168)/.test(url)) {
+	if(/office|(192\.168)/.test(url)) {
 		apiUrl = 'http://common.office.bzdev.net/bbs/common_district.jsonp';
 	} else if(/online/.test(url)) {
 		apiUrl = 'http://common.online.seedit.cc/bbs/common_district.jsonp';
